@@ -19,8 +19,11 @@ function listen(element, event, callback) {
 function addAttribute(element, attribute, content) {
   return element.setAttribute(attribute, content);
 }
+function toggleChecked(element, classes) {
+  return element.classList.toggle(classes);
+}
 
-const shoppingList = ["milk", "tea"];
+const shoppingList = [];
 
 const ol = select("ol");
 
@@ -35,6 +38,16 @@ function createAListItem(item) {
   const li = createAnElement("li");
   addText(li, item);
   appendChild(li, ol);
+  listen(li, "click", toggleChecked);
+  function toggleChecked() {
+    {
+      li.classList.toggle("checked");
+    }
+  }
+  listen(li, "dblclick", editItem);
+  function editItem() {
+    addAttribute(li, "contenteditable", true);
+  }
 }
 const form = select("form");
 listen(form, "submit", addItem);
